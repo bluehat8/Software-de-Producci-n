@@ -1,0 +1,73 @@
+﻿<Window x:Class="Software_de_Producción.Vista.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Software_de_Producción.Vista"
+        mc:Ignorable="d"
+      Title="Login" Height="450" Width="800" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize">
+    <Grid MouseDown="Grid_MouseDown" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+       
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
+                    <GradientStop Color="#FF30E6DB" Offset="1" />
+                    <GradientStop Color="#FF4B38D4" Offset="0" />
+                </LinearGradientBrush>
+
+        </Grid.Background>
+
+
+            <Border Height="390" VerticalAlignment="Top" CornerRadius="0 0 180 0" Background="#0C0C0C" MouseDown="Border_MouseDown">
+                </Border>
+
+        <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.5}">
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.514,0.572">
+                <StackPanel Width="198" Height="106">
+                    <Image  Source="/Software de Producción;component/Source/Icono Stock MGM-png.png" Height="81" VerticalAlignment="Top" Margin="30,30,35.109,30" />
+                </StackPanel>
+                <StackPanel Height="323">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Height="255">
+                        <TextBlock Name="tbcTitulo" Text="STOCK MGM" FontSize="40" FontFamily="Gotham Bold" HorizontalAlignment="Center" Margin="0 10">
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,0">
+                                    <GradientStop Color="#FF30E6DB" Offset="1" />
+                                    <GradientStop Color="#FF4B38D4" Offset="0" />
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <materialDesign:PackIcon Kind="Account" Width="25" Height="25" Foreground="White"/>
+                            <TextBox x:Name="txtUsername" Margin="10 0"  materialDesign:HintAssist.Hint="Nombre de usuario" Foreground="White" Width="250" BorderBrush="White" TextChanged="txtUsername_TextChanged"  />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="10">
+                            <materialDesign:PackIcon Kind="Lock" Width="25" Height="25" Foreground="White"/>
+                            <PasswordBox x:Name="txtPassword" Margin="10 0" materialDesign:HintAssist.Hint="Contraseña" Foreground="White" Width="250" BorderBrush="White" CaretBrush="#FFD94448" SelectionBrush="#FFD94448" />
+                        </StackPanel>
+                        <WrapPanel Margin="10" HorizontalAlignment="Center">
+                            <Button Width="150" Height="40" Style="{StaticResource MaterialDesignRaisedButton}" 
+                          BorderThickness="2" BorderBrush="#FF3D91D8"
+                         Background="#FF3D91D8" Foreground="White" ToolTip="Login" x:Name="btnLogin" Click="btnLogin_Click" Content="Iniciar sesión">
+                            </Button>
+                            <Button Width="120" Margin="10" Height="40" Style="{StaticResource MaterialDesignRaisedButton}" 
+                          BorderThickness="2" BorderBrush="#FF3D91D8"
+                         Background="#FF3D91D8" Foreground="White" ToolTip="Registrar" x:Name="btnRegister" Click="btnRegister_Click" Content="Registrarse">
+                            </Button>
+                        </WrapPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+
+        </materialDesign:TransitioningContent>
+        <StackPanel>
+                    <Button HorizontalAlignment="Right" Margin="10 10" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionButton}" Background="{x:Null}" BorderBrush="{x:Null}"
+                 ToolTip="Cerrar" x:Name="btnExit" Click="btnExit_Click">
+                        <materialDesign:PackIcon Kind="Close" Foreground="#ffff" Width="30" Height="30" />
+                    </Button>
+                </StackPanel>
+      
+        <!--</materialDesign:TransitioningContent>-->
+    </Grid>
+</Window>
+

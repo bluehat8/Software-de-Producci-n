@@ -1,0 +1,442 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctls="clr-namespace:Software_de_Producción.Controls" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Software_de_Producción.Vista.UserControls"
+             xmlns:uc="clr-namespace:Software_de_Producción.Controls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="Software_de_Producción.Vista.UserControls.Productos"
+             mc:Ignorable="d" >
+
+
+    <UserControl.Resources>
+
+
+
+        <Style x:Key="ModernTextBox" TargetType="{x:Type TextBox}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border CornerRadius="10" Background="#191A20"
+                                    Width="250" Height="40">
+                            <Grid>
+                                <Rectangle StrokeThickness="1"/>
+                                <TextBox Margin="1" materialDesign:HintAssist.Hint="Busca un producto"
+                                             Text="{TemplateBinding Text}"
+                                             Background="Transparent"
+                                             BorderBrush="Transparent"
+                                             VerticalContentAlignment="Center"
+                                             Padding="5"
+                                             Foreground="#cfcfcf"
+                                            ></TextBox>
+                                <materialDesign:PackIcon Kind="Search" Foreground="White" HorizontalAlignment="Right" Margin="0 11"  Height="20" Width="50" ></materialDesign:PackIcon>
+                            </Grid>
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid x:Name="Grid">
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" 
+                                           Height="Auto" Fill="Transparent"/>
+                            <Border x:Name="Rectangle1" CornerRadius="10 0 0 10" HorizontalAlignment="Stretch" 
+                                        VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
+                                        Background="{TemplateBinding Background}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="Tag" Value="Horizontal">
+                                <Setter TargetName="Rectangle1" Property="Width" Value="Auto"/>
+                                <Setter TargetName="Rectangle1" Property="Height" Value="7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--SCROLLBARS-->
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Foreground" Value="#FF54D2F5"/>
+            <Setter Property="Background" Value="DarkGray"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="12" Background="{x:Null}">
+                            <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
+                                <Track.Thumb>
+                                    <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" 
+                                               Style="{DynamicResource ScrollThumbs}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                                <Setter Value="{DynamicResource ButtonSelectBrush}" 
+                                            TargetName="Thumb" Property="Background"/>
+                            </Trigger>
+                            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                                <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto"/>
+                                <Setter Property="Height" Value="12"/>
+                                <Setter TargetName="Thumb" Property="Tag" Value="Horizontal"/>
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand"/>
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+
+
+    <Grid  >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style TargetType="materialDesign:PackIcon">
+                <Setter Property="Width" Value="30"></Setter>
+                <Setter Property="Height" Value="30"></Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid Grid.Column="0" Background="#191A20">
+            <StackPanel>
+
+
+                <Grid>
+                    <WrapPanel Margin="0 35" HorizontalAlignment="Center">
+
+                        <materialDesign:Card  Margin="11" UniformCornerRadius="15" HorizontalAlignment="Stretch" Width="320">
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                    <GradientStop Color="#FF4082C5" Offset="1"/>
+                                    <GradientStop Color="#FF17956A" Offset="0"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <Grid>
+                                <StackPanel Margin="10" VerticalAlignment="Bottom"  Orientation="Vertical">
+                                    <TextBlock Text="Productos" TextAlignment="Justify" Margin="10 0" VerticalAlignment="Bottom" Foreground="White" FontSize="14" />
+                                    <TextBlock x:Name="tbProductos" Text="0" TextAlignment="Justify" Margin="10,5" VerticalAlignment="Bottom" Foreground="White" FontSize="15" FontWeight="SemiBold" />
+
+                                </StackPanel>
+                                <StackPanel>
+                                    <Ellipse Width="230" Height="230" Margin="0 -130 -90 0" HorizontalAlignment="Right">
+                                        <Ellipse.Fill>
+                                            <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                                <GradientStop Color="#827BFF" Offset="0" />
+                                                <GradientStop Color="{Binding Path=EllipseBackground2,ElementName=infoCard}" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </StackPanel>
+
+                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15 25" >
+                                    <materialDesign:PackIcon Kind="Package" Foreground="White" Height="50" Width="47"></materialDesign:PackIcon>
+                                </StackPanel>
+
+                            </Grid>
+
+                        </materialDesign:Card>
+
+
+                        <!-- }-->
+
+                        <materialDesign:Card  Margin="11"  UniformCornerRadius="15" HorizontalAlignment="Stretch" Width="320">
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                    <GradientStop Color="#827BFF" Offset="1"/>
+                                    <GradientStop Color="#FF2F8AA0" Offset="0"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <Grid>
+                                <StackPanel Margin="10" VerticalAlignment="Bottom"  Orientation="Vertical">
+                                    <TextBlock Text="Totales" TextAlignment="Justify" Margin="10 0" VerticalAlignment="Bottom" Foreground="White" FontSize="14" />
+                                    <TextBlock x:Name="tbTotales" Text="0" TextAlignment="Justify" Margin="10,5" VerticalAlignment="Bottom" Foreground="White" FontSize="15" FontWeight="SemiBold" />
+
+                                </StackPanel>
+                                <StackPanel>
+                                    <Ellipse Width="230" Height="230" Margin="0 -130 -90 0" HorizontalAlignment="Right">
+                                        <Ellipse.Fill>
+                                            <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                                <GradientStop Color="#827BFF" Offset="0" />
+                                                <GradientStop Color="{Binding Path=EllipseBackground2,ElementName=infoCard}" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </StackPanel>
+
+                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15 25" >
+                                    <materialDesign:PackIcon Kind="PackageVariant" Foreground="White" Height="50" Width="47"></materialDesign:PackIcon>
+                                </StackPanel>
+
+                            </Grid>
+
+                        </materialDesign:Card>
+
+
+                        <materialDesign:Card  Margin="11" UniformCornerRadius="15" HorizontalAlignment="Stretch" Width="320">
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                    <GradientStop Color="#FFCF7B7B" Offset="0.994"/>
+                                    <GradientStop Color="#FF5757CA" Offset="0"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <Grid>
+                                <StackPanel Margin="10" VerticalAlignment="Bottom"  Orientation="Vertical">
+                                    <TextBlock Text="Costo total de compra" TextAlignment="Justify" Margin="10 0" VerticalAlignment="Bottom" Foreground="White" FontSize="14" />
+                                    <TextBlock x:Name="tbCostoTotalCompra" Text="0" TextAlignment="Justify" Margin="10,5" VerticalAlignment="Bottom" Foreground="White" FontSize="15" FontWeight="SemiBold" />
+
+                                </StackPanel>
+                                <StackPanel>
+                                    <Ellipse Width="230" Height="230" Margin="0 -130 -90 0" HorizontalAlignment="Right">
+                                        <Ellipse.Fill>
+                                            <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                                <GradientStop Color="#827BFF" Offset="0" />
+                                                <GradientStop Color="{Binding Path=EllipseBackground2,ElementName=infoCard}" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </StackPanel>
+
+                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15 25" >
+                                    <materialDesign:PackIcon Kind="Cash" Foreground="White" Height="50" Width="47"></materialDesign:PackIcon>
+                                </StackPanel>
+
+                            </Grid>
+
+                        </materialDesign:Card>
+
+                        <materialDesign:Card  Margin="11" UniformCornerRadius="15" HorizontalAlignment="Stretch" Width="320">
+                            <materialDesign:Card.Background>
+                                <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                    <GradientStop Color="#FF9F7BCF" Offset="0.994"/>
+                                    <GradientStop Color="#FF5B5BC8" Offset="0"/>
+                                </LinearGradientBrush>
+                            </materialDesign:Card.Background>
+                            <Grid>
+                                <StackPanel Margin="10" VerticalAlignment="Bottom"  Orientation="Vertical">
+                                    <TextBlock TextAlignment="Justify" Margin="10 0" VerticalAlignment="Bottom" Foreground="White" FontSize="14" ><Run Text="Producto con mayor"/><Run Text=" demanda"/></TextBlock>
+                                    <TextBlock x:Name="tbcMasExistencias" Text="0" TextAlignment="Justify" Margin="10,5" VerticalAlignment="Bottom" Foreground="White" FontSize="15" FontWeight="SemiBold" />
+
+                                </StackPanel>
+                                <StackPanel>
+                                    <Ellipse Width="230" Height="230" Margin="0 -130 -90 0" HorizontalAlignment="Right">
+                                        <Ellipse.Fill>
+                                            <LinearGradientBrush StartPoint="1,0" EndPoint="0,1">
+                                                <GradientStop Color="#827BFF" Offset="0" />
+                                                <GradientStop Color="{Binding Path=EllipseBackground2,ElementName=infoCard}" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </StackPanel>
+
+                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="15 25" >
+                                    <materialDesign:PackIcon Kind="Cash" Foreground="White" Height="50" Width="47"></materialDesign:PackIcon>
+                                </StackPanel>
+
+                            </Grid>
+
+                        </materialDesign:Card>
+
+                    </WrapPanel>
+                </Grid>
+
+                <Grid Height="87" Margin="45,10,44.345,0">
+
+                    <materialDesign:Card UniformCornerRadius="10" Background="#222730" >
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                <Border CornerRadius="10,0,0,10" materialDesign:ShadowAssist.Darken="True" Margin="20,24,0,24.273"  Width="117" RenderTransformOrigin="0.501,0.49">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF1C7999" Offset="0"/>
+                                            <GradientStop Color="#FF3786B2" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Button x:Name="btnRegistrar" HorizontalAlignment="Right" VerticalAlignment="Center"       Height="39"   Width="117" RenderTransformOrigin="0.501,0.49" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Background="{x:Null}" Click="btnRegistrar_Click">
+
+
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 0 0 0">
+                                            <materialDesign:PackIcon Kind="Typewriter"  Height="20" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                                            <TextBlock Text="Registrar producto" FontFamily="Segoe UI Light" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+
+                                <Border Margin="0,24,0,24.273" materialDesign:ShadowAssist.Darken="True"     Height="39"   Width="117">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF0D7278" Offset="0.006"/>
+                                            <GradientStop Color="#FF248F88" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+
+                                    <Button x:Name="btnImportaExcel" HorizontalAlignment="Right" VerticalAlignment="Center" Click="btnImportaExcel_Click"    Height="39"   Width="117" RenderTransformOrigin="0.501,0.49" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Background="{x:Null}">
+
+
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 0 0 0">
+                                            <materialDesign:PackIcon Kind="FileExcel"  Height="20" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                                            <TextBlock Text="Importar excel" FontFamily="Segoe UI Light" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+
+                                <Border  Margin="0,24,0,24.273" materialDesign:ShadowAssist.Darken="True"   Height="39"   Width="117">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF1963AA" Offset="0"/>
+                                            <GradientStop Color="#FF3772FF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+
+                                    <Button x:Name="btnImprimirInforme"  HorizontalAlignment="Left" VerticalAlignment="Center"      Height="39"   Width="117" RenderTransformOrigin="0.501,0.49" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Click="btnImprimirInforme_Click" Margin="0,0,-0.055,0.273">
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 0 0 0">
+                                            <materialDesign:PackIcon Kind="Abc"  Height="20" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                                            <TextBlock Text="Reporte Modelo ABC" FontFamily="Segoe UI Light" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+
+
+                                <Border CornerRadius="0,10,10,0" materialDesign:ShadowAssist.Darken="True"   Margin="0,24,0,24.273"  Width="117" RenderTransformOrigin="0.501,0.49">
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#FF0D7278" Offset="0.006"/>
+                                            <GradientStop Color="#FF248F88" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Button x:Name="btnEliminarTodo" Click="btnEliminarTodo_Click" HorizontalAlignment="Right" VerticalAlignment="Center"     Height="39"   Width="117" RenderTransformOrigin="0.501,0.49" BorderBrush="{x:Null}" Foreground="#DDFFFFFF" Background="{x:Null}">
+
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 0 0 0">
+                                            <materialDesign:PackIcon Kind="Delete"  Height="20" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"/>
+                                            <TextBlock Text="Eliminar todo" FontFamily="Segoe UI Light" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0"/>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+
+
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,29,20.418,23.273" Height="35" Width="207">
+
+                                <TextBox FontSize="12" TextOptions.TextHintingMode="Animated" Text="{Binding InputText,Mode=TwoWay}"  x:Name="txtBusqueda" Foreground="#FFB9B9B9" TextChanged="txtBusqueda_TextChanged" Style="{DynamicResource ModernTextBox2}" Width="206" Height="Auto" Margin="0,2,0,-0.091"></TextBox>
+                                <materialDesign:PackIcon Kind="Search" Height="25" Margin="-35,6"  Foreground="White"></materialDesign:PackIcon>
+                            </StackPanel>
+                        </Grid>
+
+                    </materialDesign:Card>
+
+
+                </Grid>
+
+
+                <materialDesign:Card Margin="45,30,42.455,20" UniformCornerRadius="10" Height="421" Background="#20252E">
+                    <StackPanel Margin="0,0,0,0.127" HorizontalAlignment="Stretch" >
+                        <Grid HorizontalAlignment="Stretch">
+
+                            <TextBlock Margin="20" HorizontalAlignment="Stretch" Grid.Column="0" FontWeight="SemiBold" Text="Productos" FontSize="18" Foreground="White"/>
+                            <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Right">
+                                <TextBlock FontWeight="ExtraBold" FontSize="14" Text="&#xF06C;" FontFamily="wingdings" VerticalAlignment="Center" Foreground="#FF42F4D5" />
+                                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="14" Margin="5 0 10 0" />
+                                <TextBlock FontWeight="ExtraBold" FontSize="14" Text="&#xF06C;" FontFamily="wingdings" VerticalAlignment="Center" Foreground="#FF54D2F5" />
+                                <TextBlock HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="SemiBold" FontSize="14" Margin="5 0 20 0" />
+                            </StackPanel>
+
+
+
+                        </Grid>
+                        <StackPanel Height="321">
+
+                            <DataGrid x:Name="datagridP" Height="321" SelectionChanged="datagridP_SelectionChanged" ItemsSource="{Binding Read}"  HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="auto"  CanUserAddRows="false" AutoGenerateColumns="False" FontSize="15" ColumnHeaderStyle="{DynamicResource ColorFondo}" RowBackground="#292F3B" AlternatingRowBackground="#191A20"  ColumnWidth="" Margin="0,0" Foreground="White" Background="{x:Null}" BorderBrush="{x:Null}" >
+
+                                <DataGrid.Columns x:Uid="0">
+                                    <DataGridTextColumn x:Name="columID"   Header="ID" IsReadOnly="True" Foreground="White" Width="160" Binding="{Binding id}">
+
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn x:Name="columNombre" Header="Producto" IsReadOnly="True" Foreground="White" Width="180" Binding="{Binding nombre}"></DataGridTextColumn>
+                                    <DataGridTextColumn x:Name="columInventario" Header="Demanda" IsReadOnly="True" Foreground="White" Width="180" Binding="{Binding inventario}"/>
+
+                                    <DataGridTextColumn x:Name="columPrecioCompra" Header="Costo unitario" IsReadOnly="True" Foreground="White" Width="180" Binding="{Binding precioDeCompra}"/>
+
+                                    <DataGridTextColumn x:Name="columImporte" Header="Importe total"  IsReadOnly="True" Foreground="White" Width="180" Binding="{Binding TotalPrecioCompra}"></DataGridTextColumn>
+
+                                    <DataGridTextColumn x:Name="columPrecioVenta" Header="Precio venta"  TextOptions.TextHintingMode="Animated" IsReadOnly="True" Foreground="White" Width="180" Binding="{Binding precioDeVenta}"/>
+
+
+
+                                    <DataGridTemplateColumn x:Name="columEliminar" Header="ELIMINAR" Width="100">
+                                        <DataGridTemplateColumn.CellTemplate >
+                                            <DataTemplate >
+                                                <Button x:Name="dgButtonDelete" Background="{x:Null}"   Click="dgButtonDelete_Click_1" Height="30" Width="50" BorderBrush="{x:Null}"  Foreground="{x:Null}">
+                                                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+                                                        <materialDesign:PackIcon Kind="Delete"    Foreground="#FF3B85B9" HorizontalAlignment="Center" Height="25" Width="30" HorizontalContentAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
+                                    <DataGridTemplateColumn x:Name="Editar" Header="EDITAR" Width="100">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button x:Name="dgButtonEdit"  Click="dgButtonEdit_Click_1" Height="30" Width="50" Background="{x:Null}" BorderBrush="{x:Null}">
+                                                    <materialDesign:PackIcon Kind="Edit" VerticalAlignment="Top" Foreground="#FF06736C" HorizontalAlignment="Center" Height="25" Width="30" HorizontalContentAlignment="Center"/>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
+                                </DataGrid.Columns>
+
+
+                            </DataGrid>
+                        </StackPanel>
+
+                    </StackPanel>
+                </materialDesign:Card>
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
